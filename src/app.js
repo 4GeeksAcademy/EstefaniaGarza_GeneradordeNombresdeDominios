@@ -8,19 +8,28 @@ import "./assets/img/4geeks.ico";
 window.onload = function() {
   //write your code here
 
-  let pronoun = ['the', 'our'];
-  let adj = ['great', 'big'];
-  let noun = ['jogger', 'racoon'];
-  let end = ['.com', '.net', '.us', '.io'];
+  let pronouns = ['the', 'our'];
+  let adjectives = ['great', 'big'];
+  let nouns = ['jogger', 'racoon'];
+  let extensions = ['.com', '.net', '.us', '.io', '.es', '.on', '.er'];
 
   const domains = [];
   
 
-  pronoun.forEach(pr => {
-    adj.forEach(ad=>{
-      noun.forEach(no => {
-        end.forEach(en => {
-          domains.push(`${pr}${ad}${no}${en}`)
+  pronouns.forEach(pronoun => {
+    adjectives.forEach(adjective=>{
+      nouns.forEach(noun => {
+        extensions.forEach(extension => {
+
+          let extWithoutDot = extension.slice(1);
+
+          if (noun.endsWith(extWithoutDot)){
+            let nounCut = noun.slice(0, -extWithoutDot.length);
+            domains.push(`${pronoun}${adjective}${nounCut}${extension}`);
+          }
+          else {
+            domains.push(`${pronoun}${adjective}${noun}${extension}`);
+          }
         })
       })
     })
@@ -31,6 +40,6 @@ window.onload = function() {
   })
 
   //console.log(domTrans);
-  document.getElementById(generate).innerHTML = domTrans.join('\n');
+  document.getElementById("generate").innerHTML = domTrans.join('\n');
   
 };
